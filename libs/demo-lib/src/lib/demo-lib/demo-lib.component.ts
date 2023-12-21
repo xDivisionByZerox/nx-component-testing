@@ -6,6 +6,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './demo-lib.component.html',
-  styleUrl: './demo-lib.component.scss',
+  styleUrls: ['./demo-lib.component.scss'],
 })
 export class DemoLibComponent {}

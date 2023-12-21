@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'nx-component-testing',
+  displayName: 'demo-app',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../coverage/apps/demo-app',

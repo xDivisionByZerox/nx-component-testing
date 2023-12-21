@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es2022",
     "useDefineForClassFields": false,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -21,9 +20,6 @@
     },
     {
       "path": "./tsconfig.editor.json"
-    },
-    {
-      "path": "./cypress/tsconfig.json"
     }
   ],
   "extends": "../../tsconfig.base.json",

@@ -1,4 +1,4 @@
-import { nxComponentTestingPreset } from '@nx/angular/plugins/component-testing';
+import { nxComponentTestingPreset } from '@nrwl/angular/plugins/component-testing';
 import { defineConfig } from 'cypress';
 import * as rootConfig from '../../apps/demo-app/project.json';
 
@@ -9,6 +9,7 @@ const presetStyles =
 export default defineConfig({
   component: {
     ...preset,
+    indexHtmlFile: './cypress/support/component-index.html',
     devServer: {
       ...preset.devServer,
       options: {

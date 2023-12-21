@@ -7,15 +7,14 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/demo-app",
         "index": "apps/demo-app/src/index.html",
-        "browser": "apps/demo-app/src/main.ts",
+        "main": "apps/demo-app/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/demo-app/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "assets": ["apps/demo-app/src/favicon.ico", "apps/demo-app/src/assets"],
         "styles": ["apps/demo-app/src/styles.scss"],
         "scripts": []
@@ -37,9 +36,12 @@
           "outputHashing": "all"
         },
         "development": {
+          "buildOptimizer": false,
           "optimization": false,
+          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true
         }
       },
       "defaultConfiguration": "production"
@@ -48,10 +50,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "nx-component-testing:build:production"
+          "browserTarget": "demo-app:build:production"
         },
         "development": {
-          "buildTarget": "nx-component-testing:build:development"
+          "browserTarget": "demo-app:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -59,34 +61,34 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "nx-component-testing:build"
+        "browserTarget": "demo-app:build"
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/demo-app/**/*.ts", "apps/demo-app/**/*.html"]
+      }
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/demo-app/jest.config.ts"
+        "jestConfig": "apps/demo-app/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
       }
     },
     "serve-static": {
-      "executor": "@nx/web:file-server",
+      "executor": "@nrwl/web:file-server",
       "options": {
-        "buildTarget": "nx-component-testing:build",
-        "staticFilePath": "dist/apps/demo-app/browser"
-      }
-    },
-    "component-test": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "apps/demo-app/cypress.config.ts",
-        "testingType": "component",
-        "skipServe": true,
-        "devServerTarget": "nx-component-testing:build"
+        "buildTarget": "demo-app:build"
       }
     }
   }
